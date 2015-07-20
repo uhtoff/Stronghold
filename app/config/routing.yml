@@ -1,0 +1,8 @@
+meldon_stronghold:
+    resource: "@MeldonStrongholdBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
