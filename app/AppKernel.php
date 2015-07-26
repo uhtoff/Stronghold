@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new AppBundle\AppBundle(),
             new \Braincrafted\Bundle\BootstrapBundle\BraincraftedBootstrapBundle(),
             new Meldon\StrongholdBundle\MeldonStrongholdBundle(),
+            new Meldon\AuditBundle\MeldonAuditBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
