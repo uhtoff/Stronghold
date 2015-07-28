@@ -21,8 +21,10 @@ class StrongholdManager
      * @var LogManager
      */
     private $log;
-    public function __construct()
+    public function __construct(Stronghold $game, LogManager $log)
     {
+        $this->setGame($game);
+        $this->setLogger($log);
     }
     public function setLogger(LogManager $log)
     {

@@ -3,6 +3,7 @@
 namespace Meldon\StrongholdBundle\Controller;
 
 use Doctrine\ORM\Events;
+use Meldon\AuditBundle\Services\LogManager;
 use Meldon\AuditBundle\Subscriber\UpdateAuditSubscriber;
 use Meldon\StrongholdBundle\Entity\ActionCard;
 use Meldon\StrongholdBundle\Entity\Stronghold;
@@ -21,7 +22,9 @@ class DefaultController extends Controller
     {
         $em = $this->get('doctrine.orm.default_entity_manager');
         $s = $em->getRepository('MeldonStrongholdBundle:Stronghold')->find(1);
-        $s->setHourglasses(15);
+        $lm = $this->get('audit.log_manager');
+        $sm = new StrongholdManager($s, $lm);
+        $sm->nextPhase();
         $em->flush();
         return array('name' => $name);
     }
