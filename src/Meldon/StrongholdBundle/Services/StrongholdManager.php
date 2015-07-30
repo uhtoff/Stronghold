@@ -10,6 +10,7 @@ namespace Meldon\StrongholdBundle\Services;
 
 use Meldon\AuditBundle\Services\LogManager;
 use Meldon\StrongholdBundle\Entity\Stronghold;
+use Meldon\StrongholdBundle\Repositories\StrongholdRepository;
 
 class StrongholdManager
 {
@@ -21,22 +22,39 @@ class StrongholdManager
      * @var LogManager
      */
     private $log;
-    public function __construct(Stronghold $game, LogManager $log)
+    /**
+     * @var StrongholdRepository
+     */
+    private $repository;
+//    public function __construct(Stronghold $game, LogManager $log)
+//    {
+//        $this->setGame($game);
+//        $this->setLogger($log);
+//    }
+    public function setRepository(StrongholdRepository $repository)
     {
-        $this->setGame($game);
-        $this->setLogger($log);
+        $this->repository = $repository;
     }
     public function setLogger(LogManager $log)
     {
         $this->log = $log;
     }
-    public function setGame(Stronghold $game)
+    public function setGame($id)
     {
-        $this->game = $game;
+        $this->game = $this->repository->find($id);
+        if (!$this->game instanceof Stronghold){
+            throw new GameNotFoundException;
+        }
+    }
+    public function getGame()
+    {
+        return $this->game;
     }
     public function nextPhase()
     {
         $this->game->nextPhase();
         $this->log->addText('Next phase');
     }
+
+
 }

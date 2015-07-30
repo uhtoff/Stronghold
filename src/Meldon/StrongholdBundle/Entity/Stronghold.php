@@ -15,7 +15,7 @@ use Meldon\AuditBundle\Entity\Auditable;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Meldon\StrongholdBundle\Repositories\StrongholdRepository")
  * @ORM\Table(name="game", options={"collate"="utf8mb4_unicode_ci", "charset"="utf8mb4"})
  */
  
@@ -34,12 +34,12 @@ class Stronghold implements Auditable {
      * @ORM\OneToOne(targetEntity="Phase")
      */
     private $phase;
-    /**
-     * @var Collection
-     *
-     * @ORM\OneToMany(targetEntity="ActionCard", mappedBy="game")
-     */
-    private $actionCards;
+//    /**
+//     * @var Collection
+//     *
+//     * @ORM\OneToMany(targetEntity="ActionCard", mappedBy="game")
+//     */
+//    private $actionCards;
     /**
      * @var integer
      *

@@ -12,20 +12,25 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
+/**
+ * @Route("stronghold")
+ * Class DefaultController
+ * @package Meldon\StrongholdBundle\Controller
+ */
+
 class DefaultController extends Controller
 {
     /**
-     * @Route("/hello/{name}")
+     * @Route("/{id}")
      * @Template()
      */
-    public function indexAction($name)
+    public function indexAction($id)
     {
         $em = $this->get('doctrine.orm.default_entity_manager');
-        $s = $em->getRepository('MeldonStrongholdBundle:Stronghold')->find(1);
-        $lm = $this->get('audit.log_manager');
-        $sm = new StrongholdManager($s, $lm);
+        $sm = $this->get('stronghold.stronghold_manager');
+        $sm->setGame(3);
         $sm->nextPhase();
         $em->flush();
-        return array('name' => $name);
+        return array('game' => $sm->getGame());
     }
 }
