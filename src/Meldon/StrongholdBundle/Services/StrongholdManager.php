@@ -45,6 +45,7 @@ class StrongholdManager
         if (!$this->game instanceof Stronghold){
             throw new GameNotFoundException;
         }
+        return $this;
     }
     public function getGame()
     {
@@ -55,6 +56,9 @@ class StrongholdManager
         $this->game->nextPhase();
         $this->log->addText('Next phase');
     }
-
+    public function addHourglass($number = 1)
+    {
+        $this->game->setHourglasses($this->game->getHourglasses() + $number);
+    }
 
 }

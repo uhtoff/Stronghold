@@ -9,6 +9,7 @@
 namespace Meldon\StrongholdBundle\Entity;
 
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Meldon\AuditBundle\Entity\Auditable;
@@ -47,8 +48,9 @@ class Stronghold implements Auditable {
      *  min = 0,
      *  max = 12
      * )
+     * @ORM\Column(type="integer")
      */
-    private $hourglasses;
+    private $hourglasses = 0;
 
     public function setHourglasses($hg)
     {
@@ -78,6 +80,14 @@ class Stronghold implements Auditable {
     }
 
     /**
+     * @return int
+     */
+    public function getHourglasses()
+    {
+        return $this->hourglasses;
+    }
+
+    /**
      * Get phase
      *
      * @return Phase
@@ -102,16 +112,16 @@ class Stronghold implements Auditable {
      */
     public function __construct()
     {
-        $this->actionCards = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->actionCards = new ArrayCollection();
     }
 
     /**
      * Add actionCards
      *
-     * @param \Meldon\StrongholdBundle\Entity\ActionCard $actionCards
+     * @param ActionCard $actionCards
      * @return Stronghold
      */
-    public function addActionCard(\Meldon\StrongholdBundle\Entity\ActionCard $actionCards)
+    public function addActionCard(ActionCard $actionCards)
     {
         $this->actionCards[] = $actionCards;
 
@@ -121,9 +131,9 @@ class Stronghold implements Auditable {
     /**
      * Remove actionCards
      *
-     * @param \Meldon\StrongholdBundle\Entity\ActionCard $actionCards
+     * @param ActionCard $actionCards
      */
-    public function removeActionCard(\Meldon\StrongholdBundle\Entity\ActionCard $actionCards)
+    public function removeActionCard(ActionCard $actionCards)
     {
         $this->actionCards->removeElement($actionCards);
     }

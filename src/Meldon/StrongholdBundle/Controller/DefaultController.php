@@ -27,9 +27,12 @@ class DefaultController extends Controller
     public function indexAction($id)
     {
         $em = $this->get('doctrine.orm.default_entity_manager');
-        $sm = $this->get('stronghold.stronghold_manager');
-        $sm->setGame(3);
-        $sm->nextPhase();
+        $ae = $em->getRepository("MeldonAuditBundle:AuditEntry")->find(41);
+        $am = $this->get('audit.audit_manager');
+        $am->revertAudit($ae);
+        $sm = $this->get('stronghold.stronghold_manager')->setGame($id);
+//        $sm->nextPhase();
+//        $sm->addHourglass();
         $em->flush();
         return array('game' => $sm->getGame());
     }
