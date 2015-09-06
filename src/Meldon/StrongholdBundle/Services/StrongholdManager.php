@@ -60,5 +60,9 @@ class StrongholdManager
     {
         $this->game->setHourglasses($this->game->getHourglasses() + $number);
     }
-
+    public function deleteGame()
+    {
+        $this->repository->remove($this->game);
+        $this->log->addText('Delete game');
+    }
 }

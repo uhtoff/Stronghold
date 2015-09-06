@@ -29,8 +29,8 @@ class DefaultController extends Controller
         $em = $this->get('doctrine.orm.default_entity_manager');
         $ae = $em->getRepository("MeldonAuditBundle:AuditEntry")->find(41);
         $am = $this->get('audit.audit_manager');
-        $am->revertAudit($ae);
         $sm = $this->get('stronghold.stronghold_manager')->setGame($id);
+//        $sm->deleteGame();
 //        $sm->nextPhase();
 //        $sm->addHourglass();
         $em->flush();

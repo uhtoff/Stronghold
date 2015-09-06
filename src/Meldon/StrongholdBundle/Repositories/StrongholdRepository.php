@@ -21,5 +21,8 @@ class StrongholdRepository extends EntityRepository
     {
         $this->_em->persist($entity);
     }
-
+    public function remove(Stronghold $entity)
+    {
+        $this->_em->remove($entity);
+    }
 }
