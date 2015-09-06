@@ -12,7 +12,7 @@ namespace Meldon\StrongholdBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(readOnly=true)
+ * @ORM\Entity(repositoryClass="Meldon\StrongholdBundle\Repositories\PhaseRepository",readOnly=true)
  * @ORM\Table(name="phase", options={"collate"="utf8mb4_unicode_ci", "charset"="utf8mb4"})
  */
  
@@ -47,20 +47,6 @@ class Phase  {
     {
         return $this->id;
     }
-
-    /**
-     * Set name
-     *
-     * @param string $name
-     * @return Phase
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
     /**
      * Get name
      *
@@ -70,20 +56,6 @@ class Phase  {
     {
         return $this->name;
     }
-
-    /**
-     * Set nextPhase
-     *
-     * @param Phase $nextPhase
-     * @return Phase
-     */
-    public function setNextPhase(Phase $nextPhase = null)
-    {
-        $this->nextPhase = $nextPhase;
-
-        return $this;
-    }
-
     /**
      * Get nextPhase
      *

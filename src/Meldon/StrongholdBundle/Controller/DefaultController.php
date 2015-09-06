@@ -21,8 +21,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/{id}")
-     * @Template()
+     * @Route("/{id}", requirements={"id": "\d+"})
      */
     public function indexAction($id)
     {
@@ -30,10 +29,28 @@ class DefaultController extends Controller
         $ae = $em->getRepository("MeldonAuditBundle:AuditEntry")->find(41);
         $am = $this->get('audit.audit_manager');
         $sm = $this->get('stronghold.stronghold_manager')->setGame($id);
-//        $sm->deleteGame();
+        $sm->deleteGame();
 //        $sm->nextPhase();
 //        $sm->addHourglass();
         $em->flush();
-        return array('game' => $sm->getGame());
+        return $this->render('MeldonStrongholdBundle:Default:index.html.twig',
+            array('game' => $sm->getGame()));
+    }
+
+    /**
+     * @Route("/new/{scenario}",defaults={"scenario"=1})
+     */
+    public function newGame($scenario)
+    {
+        $em = $this->get('doctrine.orm.default_entity_manager');
+        $pr = $em->getRepository("MeldonStrongholdBundle:Phase");
+        $p1 = $pr->getStartingPhase($scenario);
+        $sh = new Stronghold();
+        $sh->setPhase($p1);
+        $em->persist($sh);
+        $em->flush();
+        return $this->redirectToRoute('meldon_stronghold_default_index',
+            array('id' => $sh->getId()));
+
     }
 }

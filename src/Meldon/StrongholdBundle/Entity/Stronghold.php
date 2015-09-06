@@ -32,7 +32,7 @@ class Stronghold implements Auditable {
     /**
      * @var Phase
      *
-     * @ORM\OneToOne(targetEntity="Phase")
+     * @ORM\ManyToOne(targetEntity="Phase")
      */
     private $phase;
 //    /**
