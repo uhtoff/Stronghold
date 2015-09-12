@@ -20,6 +20,7 @@ class StrongholdRepository extends EntityRepository
     public function save(Stronghold $entity)
     {
         $this->_em->persist($entity);
+        $this->_em->flush();
     }
     public function remove(Stronghold $entity)
     {

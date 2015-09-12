@@ -51,6 +51,51 @@ class Stronghold implements Auditable {
      * @ORM\Column(type="integer")
      */
     private $hourglasses = 0;
+    /**
+     * @var int
+     * @ORM\Column(type="integer")
+     */
+    private $resources = 5;
+    /**
+     * @var int
+     * @ORM\Column(type="integer")
+     */
+    private $invaderGlory = 10;
+    /**
+     * @var int
+     * @ORM\Column(type="integer")
+     */
+    private $defenderGlory = 0;
+    /**
+     * @var bool
+     * @ORM\Column(type="boolean")
+     */
+    private $forcedLabour = false;
+    /**
+     * @var bool
+     * @ORM\Column(type="boolean")
+     */
+    private $shamefulNegotiations = false;
+    /**
+     * @var bool
+     * @ORM\Column(type="boolean")
+     */
+    private $desperateMeasures = false;
+    /**
+     * @var bool
+     * @ORM\Column(type="boolean")
+     */
+    private $openTheDungeons = false;
+    /**
+     * @var bool
+     * @ORM\Column(type="boolean")
+     */
+    private $honourGuard = true;
+    /**
+     * @var int
+     * @ORM\Column(type="integer")
+     */
+    private $turn = 1;
 
     public function setHourglasses($hg)
     {
@@ -146,5 +191,222 @@ class Stronghold implements Auditable {
     public function getActionCards()
     {
         return $this->actionCards;
+    }
+
+    /**
+     * Set resources
+     *
+     * @param integer $resources
+     *
+     * @return Stronghold
+     */
+    public function setResources($resources)
+    {
+        $this->resources = $resources;
+
+        return $this;
+    }
+
+    /**
+     * Get resources
+     *
+     * @return integer
+     */
+    public function getResources()
+    {
+        return $this->resources;
+    }
+
+    /**
+     * Set invaderGlory
+     *
+     * @param integer $invaderGlory
+     *
+     * @return Stronghold
+     */
+    public function setInvaderGlory($invaderGlory)
+    {
+        $this->invaderGlory = $invaderGlory;
+
+        return $this;
+    }
+
+    /**
+     * Get invaderGlory
+     *
+     * @return integer
+     */
+    public function getInvaderGlory()
+    {
+        return $this->invaderGlory;
+    }
+
+    /**
+     * Set defenderGlory
+     *
+     * @param integer $defenderGlory
+     *
+     * @return Stronghold
+     */
+    public function setDefenderGlory($defenderGlory)
+    {
+        $this->defenderGlory = $defenderGlory;
+
+        return $this;
+    }
+
+    /**
+     * Get defenderGlory
+     *
+     * @return integer
+     */
+    public function getDefenderGlory()
+    {
+        
+        return $this->defenderGlory;
+    }
+
+    /**
+     * Set forcedLabour
+     *
+     * @param boolean $forcedLabour
+     *
+     * @return Stronghold
+     */
+    public function setForcedLabour($forcedLabour)
+    {
+        $this->forcedLabour = $forcedLabour;
+
+        return $this;
+    }
+
+    /**
+     * Get forcedLabour
+     *
+     * @return boolean
+     */
+    public function getForcedLabour()
+    {
+        return $this->forcedLabour;
+    }
+
+    /**
+     * Set shamefulNegotiations
+     *
+     * @param boolean $shamefulNegotiations
+     *
+     * @return Stronghold
+     */
+    public function setShamefulNegotiations($shamefulNegotiations)
+    {
+        $this->shamefulNegotiations = $shamefulNegotiations;
+
+        return $this;
+    }
+
+    /**
+     * Get shamefulNegotiations
+     *
+     * @return boolean
+     */
+    public function getShamefulNegotiations()
+    {
+        return $this->shamefulNegotiations;
+    }
+
+    /**
+     * Set desperateMeasures
+     *
+     * @param boolean $desperateMeasures
+     *
+     * @return Stronghold
+     */
+    public function setDesperateMeasures($desperateMeasures)
+    {
+        $this->desperateMeasures = $desperateMeasures;
+
+        return $this;
+    }
+
+    /**
+     * Get desperateMeasures
+     *
+     * @return boolean
+     */
+    public function getDesperateMeasures()
+    {
+        return $this->desperateMeasures;
+    }
+
+    /**
+     * Set openTheDungeons
+     *
+     * @param boolean $openTheDungeons
+     *
+     * @return Stronghold
+     */
+    public function setOpenTheDungeons($openTheDungeons)
+    {
+        $this->openTheDungeons = $openTheDungeons;
+
+        return $this;
+    }
+
+    /**
+     * Get openTheDungeons
+     *
+     * @return boolean
+     */
+    public function getOpenTheDungeons()
+    {
+        return $this->openTheDungeons;
+    }
+
+    /**
+     * Set honourGuard
+     *
+     * @param boolean $honourGuard
+     *
+     * @return Stronghold
+     */
+    public function setHonourGuard($honourGuard)
+    {
+        $this->honourGuard = $honourGuard;
+
+        return $this;
+    }
+
+    /**
+     * Get honourGuard
+     *
+     * @return boolean
+     */
+    public function getHonourGuard()
+    {
+        return $this->honourGuard;
+    }
+
+    /**
+     * Set turn
+     *
+     * @param integer $turn
+     *
+     * @return Stronghold
+     */
+    public function setTurn($turn)
+    {
+        $this->turn = $turn;
+
+        return $this;
+    }
+
+    /**
+     * Get turn
+     *
+     * @return integer
+     */
+    public function getTurn()
+    {
+        return $this->turn;
     }
 }

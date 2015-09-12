@@ -29,9 +29,9 @@ class DefaultController extends Controller
         $ae = $em->getRepository("MeldonAuditBundle:AuditEntry")->find(41);
         $am = $this->get('audit.audit_manager');
         $sm = $this->get('stronghold.stronghold_manager')->setGame($id);
-        $sm->deleteGame();
-//        $sm->nextPhase();
-//        $sm->addHourglass();
+//        $sm->deleteGame();
+        $sm->nextPhase();
+        $sm->addHourglass();
         $em->flush();
         return $this->render('MeldonStrongholdBundle:Default:index.html.twig',
             array('game' => $sm->getGame()));
@@ -43,14 +43,11 @@ class DefaultController extends Controller
     public function newGame($scenario)
     {
         $em = $this->get('doctrine.orm.default_entity_manager');
-        $pr = $em->getRepository("MeldonStrongholdBundle:Phase");
-        $p1 = $pr->getStartingPhase($scenario);
-        $sh = new Stronghold();
-        $sh->setPhase($p1);
-        $em->persist($sh);
+        $sm = $this->get('stronghold.stronghold_manager');
+        $sm->createGame();
         $em->flush();
         return $this->redirectToRoute('meldon_stronghold_default_index',
-            array('id' => $sh->getId()));
+            array('id' => $sm->getGame()->getId()));
 
     }
 }
