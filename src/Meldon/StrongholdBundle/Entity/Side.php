@@ -12,8 +12,8 @@ namespace Meldon\StrongholdBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
- * @ORM\Table(name="Side", options={"collate"="utf8mb4_unicode_ci", "charset"="utf8mb4"})
+ * @ORM\Entity(repositoryClass="Meldon\StrongholdBundle\Repositories\SideRepository",readOnly=true)
+ * @ORM\Table(name="side", options={"collate"="utf8mb4_unicode_ci", "charset"="utf8mb4"})
  */
  
 class Side  {

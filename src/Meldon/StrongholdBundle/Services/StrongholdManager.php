@@ -20,7 +20,7 @@ class StrongholdManager
      */
     private $game;
     /**
-     * @var LogManager
+     * @var StrongholdLogManager
      */
     private $log;
     /**
@@ -57,9 +57,9 @@ class StrongholdManager
     /**
      * Called by service at instantiation
      * Inserts log manager, deals with general log issues, log entry will likely be specific to the game
-     * @param LogManager $log
+     * @param StrongholdLogManager $log
      */
-    public function setLogger(LogManager $log)
+    public function setLogger(StrongholdLogManager $log)
     {
         $this->log = $log;
     }
@@ -77,6 +77,7 @@ class StrongholdManager
         if (!$this->game instanceof Stronghold){
             throw new GameNotFoundException;
         }
+        $this->log->setGame($this->game);
         return $this;
     }
 
@@ -116,6 +117,4 @@ class StrongholdManager
     {
         $this->game->setHourglasses($this->game->getHourglasses() + $number);
     }
-
-
 }
