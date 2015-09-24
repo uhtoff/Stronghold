@@ -33,6 +33,9 @@
             <argument>MeldonStrongholdBundle:Phase</argument>
         </service>
         <service id="stronghold.stronghold_log_manager" class="Meldon\StrongholdBundle\Services\StrongholdLogManager">
+            <!--<call method="setRepository">-->
+                <!--<argument type="service" id="audit.log_item_repository"/>-->
+            <!--</call>-->
         </service>
         <service id="stronghold.stronghold_manager" class="Meldon\StrongholdBundle\Services\StrongholdManager">
             <call method="setLogger">
