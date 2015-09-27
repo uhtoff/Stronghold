@@ -2,11 +2,13 @@
 
 namespace Meldon\StrongholdBundle\Controller;
 
+use Doctrine\Common\Util\Debug;
 use Doctrine\ORM\Events;
 use Meldon\AuditBundle\Services\LogManager;
 use Meldon\AuditBundle\Subscriber\UpdateAuditSubscriber;
 use Meldon\StrongholdBundle\Entity\ActionCard;
 use Meldon\StrongholdBundle\Entity\Stronghold;
+use Meldon\StrongholdBundle\Events\LogFileEvent;
 use Meldon\StrongholdBundle\Services\StrongholdManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -29,12 +31,15 @@ class DefaultController extends Controller
         $ae = $em->getRepository("MeldonAuditBundle:AuditEntry")->find(41);
         $am = $this->get('audit.audit_manager');
         $sm = $this->get('stronghold.stronghold_manager')->setGame($id);
+//        $ed = $this->get('event_dispatcher');
+//        $ed->dispatch('log.file.creation',new LogFileEvent($sm->getLogger()->getLog()));
 //        $sm->deleteGame();
         $sm->nextPhase();
         $sm->addHourglass();
         $em->flush();
         return $this->render('MeldonStrongholdBundle:Default:index.html.twig',
-            array('game' => $sm->getGame()));
+            array('game' => $sm->getGame(),
+                'log' => $sm->getLog()));
     }
 
     /**

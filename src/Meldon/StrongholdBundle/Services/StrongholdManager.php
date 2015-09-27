@@ -64,6 +64,11 @@ class StrongholdManager
         $this->log = $log;
     }
 
+    public function getLog()
+    {
+        return $this->log->getAllLogs();
+    }
+
     /**
      * Retrieves game as per id sent, throws Exception to be gracefully handled (eventually)
      * @TODO Graceful handle (and define) Exception
@@ -116,5 +121,7 @@ class StrongholdManager
     public function addHourglass($number = 1)
     {
         $this->game->setHourglasses($this->game->getHourglasses() + $number);
+        $this->log->addText("You have gained {$number} hourglasses.");
+        $this->log->addText("You now have {$this->game->getHourglasses()} hourglasses.");
     }
 }

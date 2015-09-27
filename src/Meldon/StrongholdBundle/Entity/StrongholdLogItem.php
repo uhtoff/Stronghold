@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Class StrongholdLogItem
  * @package Meldon\StrongholdBundle\Entity
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Meldon\StrongholdBundle\Repositories\StrongholdLogItemRepository")
  * @ORM\Table(name="log_item", options={"collate"="utf8mb4_unicode_ci", "charset"="utf8mb4"})
  */
 class StrongholdLogItem extends LogItem

@@ -6,4 +6,15 @@
         <p>Phase: {{ game.phase.name }}</p>
         <p>Hourglasses: {{ game.hourglasses }}</p>
     </div>
+    <div class="well row">
+        <table class="table table-striped">
+            {% for row in log %}
+                <tr>
+                    <td>{{ row.id }}</td>
+                    <td>{{ row.turn }}</td>
+                    <td>{{ row.text|nl2br }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
 {% endblock %}
