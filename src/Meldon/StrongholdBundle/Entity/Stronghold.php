@@ -38,6 +38,11 @@ class Stronghold implements Auditable {
      * @ORM\ManyToOne(targetEntity="Side")
      */
     private $currentSide;
+    /**
+     * @var ActionStack
+     * @ORM\OneToOne(targetEntity="ActionStack", inversedBy="game")
+     */
+    private $actionStack;
 //    /**
 //     * @var Collection
 //     *
@@ -427,6 +432,22 @@ class Stronghold implements Auditable {
     public function setCurrentSide($currentSide)
     {
         $this->currentSide = $currentSide;
+    }
+
+    /**
+     * @return ActionStack
+     */
+    public function getActionStack()
+    {
+        return $this->actionStack;
+    }
+
+    /**
+     * @param ActionStack $actionStack
+     */
+    public function setActionStack($actionStack)
+    {
+        $this->actionStack = $actionStack;
     }
 
 
