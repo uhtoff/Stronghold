@@ -39,6 +39,15 @@ class Side  {
     private $abbreviation;
 
     /**
+     * Returns name of the side
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->name;
+    }
+
+    /**
      * Get id
      *
      * @return integer 

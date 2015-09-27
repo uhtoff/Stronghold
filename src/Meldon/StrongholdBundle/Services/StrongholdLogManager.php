@@ -48,11 +48,10 @@ class StrongholdLogManager implements LogManager
     public function setGame(Stronghold $game)
     {
         $this->game = $game;
-        $this->logItem->setTurn($game->getTurn());
-        $this->logItem->setGameID($game->getID());
+        $this->logItem->setGame($game);
     }
     public function getAllLogs()
     {
-        return $this->repository->getLogsByID($this->game->getID());
+        return $this->repository->getLogsByGame($this->game);
     }
 }

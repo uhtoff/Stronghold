@@ -21,15 +21,21 @@ class StrongholdLogItem extends LogItem
 {
     /**
      * @var int
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $turn;
 
     /**
-     * @var int
-     * @ORM\Column(type="integer")
+     * @var Stronghold
+     * @ORM\ManyToOne(targetEntity="Stronghold")
      */
-    private $gameID;
+    private $game;
+
+    /**
+     * @var Side
+     * @ORM\ManyToOne(targetEntity="Side")
+     */
+    private $side;
 
     /**
      * @return int
@@ -46,19 +52,38 @@ class StrongholdLogItem extends LogItem
     {
         $this->turn = $turn;
     }
+
     /**
      * @return int
      */
-    public function getGameID()
+    public function getGame()
     {
-        return $this->gameID;
+        return $this->game;
     }
 
     /**
-     * @param int $gameID
+     * @param Stronghold $game
      */
-    public function setGameID($gameID)
+    public function setGame(Stronghold $game)
     {
-        $this->gameID = $gameID;
+        $this->game = $game;
+        $this->setTurn($game->getTurn());
+        $this->setSide($game->getCurrentSide());
+    }
+
+    /**
+     * @return Side
+     */
+    public function getSide()
+    {
+        return $this->side;
+    }
+
+    /**
+     * @param Side $side
+     */
+    public function setSide($side)
+    {
+        $this->side = $side;
     }
 }

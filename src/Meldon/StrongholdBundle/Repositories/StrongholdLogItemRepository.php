@@ -2,6 +2,7 @@
 namespace Meldon\StrongholdBundle\Repositories;
 
 use Doctrine\ORM\EntityRepository;
+use Meldon\StrongholdBundle\Entity\Stronghold;
 use Meldon\StrongholdBundle\Entity\StrongholdLogItem;
 
 class StrongholdLogItemRepository extends EntityRepository
@@ -13,12 +14,12 @@ class StrongholdLogItemRepository extends EntityRepository
     }
 
     /**
-     * @param $id
+     * @param Stronghold $game
      * @return mixed
      */
-    public function getLogsByID($id)
+    public function getLogsByGame(Stronghold $game)
     {
-        return $this->findByGameID($id,
+        return $this->findByGame($game,
             array('id' => 'DESC'));
     }
 }

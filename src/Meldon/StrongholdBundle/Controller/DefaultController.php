@@ -27,16 +27,10 @@ class DefaultController extends Controller
      */
     public function indexAction($id)
     {
-        $em = $this->get('doctrine.orm.default_entity_manager');
-        $ae = $em->getRepository("MeldonAuditBundle:AuditEntry")->find(41);
-        $am = $this->get('audit.audit_manager');
         $sm = $this->get('stronghold.stronghold_manager')->setGame($id);
-//        $ed = $this->get('event_dispatcher');
-//        $ed->dispatch('log.file.creation',new LogFileEvent($sm->getLogger()->getLog()));
-//        $sm->deleteGame();
         $sm->nextPhase();
         $sm->addHourglass();
-        $em->flush();
+        $sm->saveGame();
         return $this->render('MeldonStrongholdBundle:Default:index.html.twig',
             array('game' => $sm->getGame(),
                 'log' => $sm->getLog()));
@@ -47,10 +41,9 @@ class DefaultController extends Controller
      */
     public function newGame($scenario)
     {
-        $em = $this->get('doctrine.orm.default_entity_manager');
         $sm = $this->get('stronghold.stronghold_manager');
-        $sm->createGame();
-        $em->flush();
+        $sm->createGame($scenario);
+        $sm->saveGame();
         return $this->redirectToRoute('meldon_stronghold_default_index',
             array('id' => $sm->getGame()->getId()));
 

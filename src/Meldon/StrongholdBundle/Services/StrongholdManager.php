@@ -8,7 +8,6 @@
 
 namespace Meldon\StrongholdBundle\Services;
 
-use Meldon\AuditBundle\Services\LogManager;
 use Meldon\StrongholdBundle\Entity\Stronghold;
 use Meldon\StrongholdBundle\Repositories\PhaseRepository;
 use Meldon\StrongholdBundle\Repositories\StrongholdRepository;
@@ -31,11 +30,7 @@ class StrongholdManager
      * @var PhaseRepository
      */
     private $phaseRepository;
-//    public function __construct(Stronghold $game, LogManager $log)
-//    {
-//        $this->setGame($game);
-//        $this->setLogger($log);
-//    }
+
     /**
      * Called by service at instantiation, mandatory otherwise service will not work correctly
      * @param StrongholdRepository $repository
@@ -105,19 +100,40 @@ class StrongholdManager
         $p1 = $this->phaseRepository->getStartingPhase($scenario);
         $sh->setPhase($p1);
         $this->game = $sh;
-        $this->repository->save($sh);
+        $this->saveGame();
         $this->log->addText('Game created - ID = ' . $sh->getID());
     }
+
+    /**
+     * Flush game to database - includes call to persist
+     */
+    public function saveGame()
+    {
+        $this->repository->save($this->game);
+    }
+
+    /**
+     * Delete game from database
+     */
     public function deleteGame()
     {
         $this->repository->remove($this->game);
         $this->log->addText('Delete game');
     }
+
+    /**
+     * Move to next phase
+     */
     public function nextPhase()
     {
-        $this->game->nextPhase();
-        $this->log->addText('Next phase');
+        $nextPhase = $this->game->nextPhase();
+        $this->log->addText("Next phase begun - {$nextPhase}");
     }
+
+    /**
+     * Add hourglasses to the defender depending on number sent
+     * @param int $number
+     */
     public function addHourglass($number = 1)
     {
         $this->game->setHourglasses($this->game->getHourglasses() + $number);

@@ -8,9 +8,7 @@
 
 namespace Meldon\StrongholdBundle\Entity;
 
-
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Meldon\AuditBundle\Entity\Auditable;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -35,6 +33,11 @@ class Stronghold implements Auditable {
      * @ORM\ManyToOne(targetEntity="Phase")
      */
     private $phase;
+    /**
+     * @var Side
+     * @ORM\ManyToOne(targetEntity="Side")
+     */
+    private $currentSide;
 //    /**
 //     * @var Collection
 //     *
@@ -409,4 +412,22 @@ class Stronghold implements Auditable {
     {
         return $this->turn;
     }
+
+    /**
+     * @return Side
+     */
+    public function getCurrentSide()
+    {
+        return $this->currentSide;
+    }
+
+    /**
+     * @param Side $currentSide
+     */
+    public function setCurrentSide($currentSide)
+    {
+        $this->currentSide = $currentSide;
+    }
+
+
 }
