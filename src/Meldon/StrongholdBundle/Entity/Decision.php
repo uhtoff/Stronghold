@@ -27,7 +27,7 @@ class Decision  {
     private $id;
     /**
      * @var ActionStack
-     * @ORM\Column(targetEntity="ActionStack")
+     * @ORM\ManyToOne(targetEntity="ActionStack")
      */
     private $stack;
     /**

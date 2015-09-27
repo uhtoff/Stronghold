@@ -19,7 +19,7 @@ class ActionStack {
     private $id;
     /**
      * @var Stronghold
-     * @ORM\OneToOne(targetEntity="Game", mappedBy="actionStack")
+     * @ORM\OneToOne(targetEntity="Stronghold", mappedBy="actionStack")
      */
     private $game;
     /**

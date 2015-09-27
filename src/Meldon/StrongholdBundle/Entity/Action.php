@@ -11,7 +11,7 @@ namespace Meldon\StrongholdBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(readonly=true)
+ * @ORM\Entity(readOnly=true)
  * @ORM\Table(name="action", options={"collate"="utf8mb4_unicode_ci", "charset"="utf8mb4"})
  */
  
