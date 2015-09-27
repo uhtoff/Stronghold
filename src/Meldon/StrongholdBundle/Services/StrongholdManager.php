@@ -10,6 +10,7 @@ namespace Meldon\StrongholdBundle\Services;
 
 use Meldon\StrongholdBundle\Entity\Stronghold;
 use Meldon\StrongholdBundle\Repositories\PhaseRepository;
+use Meldon\StrongholdBundle\Repositories\SideRepository;
 use Meldon\StrongholdBundle\Repositories\StrongholdRepository;
 
 class StrongholdManager
@@ -30,33 +31,20 @@ class StrongholdManager
      * @var PhaseRepository
      */
     private $phaseRepository;
-
     /**
-     * Called by service at instantiation, mandatory otherwise service will not work correctly
-     * @param StrongholdRepository $repository
+     * @var SideRepository
      */
-    public function setGameRepository(StrongholdRepository $repository)
-    {
-        $this->repository = $repository;
-    }
+    private $sideRepository;
 
-    /**
-     * Called by service at instantiation, mandatory
-     * @param PhaseRepository $repository
-     */
-    public function setPhaseRepository(PhaseRepository $repository)
+    public function __construct(StrongholdRepository $shr,
+        PhaseRepository $pr,
+        SideRepository $sr,
+        StrongholdLogManager $lm)
     {
-        $this->phaseRepository = $repository;
-    }
-
-    /**
-     * Called by service at instantiation
-     * Inserts log manager, deals with general log issues, log entry will likely be specific to the game
-     * @param StrongholdLogManager $log
-     */
-    public function setLogger(StrongholdLogManager $log)
-    {
-        $this->log = $log;
+        $this->repository = $shr;
+        $this->phaseRepository = $pr;
+        $this->sideRepository = $sr;
+        $this->log = $lm;
     }
 
     public function getLog()
@@ -139,5 +127,14 @@ class StrongholdManager
         $this->game->setHourglasses($this->game->getHourglasses() + $number);
         $this->log->addText("You have gained {$number} hourglasses.");
         $this->log->addText("You now have {$this->game->getHourglasses()} hourglasses.");
+    }
+
+    /**
+     * @param string $abb
+     * @return Side
+     */
+    public function getSide($abb)
+    {
+        return $this->sideRepository->getSideByAbbreviation($abb);
     }
 }

@@ -8,13 +8,22 @@
     </div>
     <div class="well row">
         <table class="table table-striped">
+            <thead>
+                <th>ID</th>
+                <th>Side</th>
+                <th>Turn</th>
+                <th>Text</th>
+            </thead>
+            <tbody>
             {% for row in log %}
                 <tr>
                     <td>{{ row.id }}</td>
+                    <td>{{ row.side }}</td>
                     <td>{{ row.turn }}</td>
                     <td>{{ row.text|nl2br }}</td>
                 </tr>
             {% endfor %}
+            </tbody>
         </table>
     </div>
 {% endblock %}

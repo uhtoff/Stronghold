@@ -28,20 +28,19 @@
                  factory-service="doctrine" factory-method="getRepository">
             <argument>MeldonStrongholdBundle:Phase</argument>
         </service>
+        <service id="stronghold.side_repository" class="Meldon\StrongholdBundle\Repositories\SideRepository"
+                 factory-service="doctrine" factory-method="getRepository">
+            <argument>MeldonStrongholdBundle:Side</argument>
+        </service>
         <service id="stronghold.stronghold_log_manager" class="Meldon\StrongholdBundle\Services\StrongholdLogManager">
             <argument type="service" id="stronghold.stronghold_log_item_repository"/>
             <argument type="service" id="event_dispatcher"/>
         </service>
         <service id="stronghold.stronghold_manager" class="Meldon\StrongholdBundle\Services\StrongholdManager">
-            <call method="setLogger">
-                <argument type="service" id="stronghold.stronghold_log_manager" />
-            </call>
-            <call method="setGameRepository">
-                <argument type="service" id="stronghold.stronghold_repository"/>
-            </call>
-            <call method="setPhaseRepository">
-                <argument type="service" id="stronghold.phase_repository"/>
-            </call>
+            <argument type="service" id="stronghold.stronghold_repository"/>
+            <argument type="service" id="stronghold.phase_repository"/>
+            <argument type="service" id="stronghold.side_repository"/>
+            <argument type="service" id="stronghold.stronghold_log_manager"/>
         </service>
     </services>
 </container>
