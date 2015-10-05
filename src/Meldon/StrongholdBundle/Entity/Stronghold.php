@@ -40,7 +40,7 @@ class Stronghold implements Auditable {
     private $currentSide;
     /**
      * @var ActionStack
-     * @ORM\OneToOne(targetEntity="ActionStack", inversedBy="game")
+     * @ORM\OneToOne(targetEntity="ActionStack", inversedBy="game", cascade={"persist"})
      */
     private $actionStack;
 //    /**

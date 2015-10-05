@@ -5,6 +5,17 @@
         <p>Game ID: {{ game.id }}</p>
         <p>Phase: {{ game.phase.name }}</p>
         <p>Hourglasses: {{ game.hourglasses }}</p>
+        <p>Current side: {{ game.currentSide.name }}</p>
+    </div>
+    <div class="well row">
+        <h5>Action Stack -</h5>
+        <ul>
+        {% for action in game.actionStack.getActions %}
+            <li>{{ action.position }} - {{ action.masterAction.name }} ({{ action.actionDetails.name }})</li>
+        {% else %}
+            <li>No actions on the stack</li>
+        {% endfor %}
+        </ul>
     </div>
     <div class="well row">
         <table class="table table-striped">
@@ -15,7 +26,7 @@
                 <th>Text</th>
             </thead>
             <tbody>
-            {% for row in log %}
+            {% for row in log|slice(0,10) %}
                 <tr>
                     <td>{{ row.id }}</td>
                     <td>{{ row.side }}</td>

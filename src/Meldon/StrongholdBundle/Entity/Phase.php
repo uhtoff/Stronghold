@@ -38,6 +38,12 @@ class Phase  {
      */
     private $nextPhase;
 
+    /**
+     * @var MasterAction
+     * @ORM\ManyToOne(targetEntity="MasterAction")
+     */
+    private $firstAction;
+
     public function __toString()
     {
         return $this->getName();
@@ -69,5 +75,13 @@ class Phase  {
     public function getNextPhase()
     {
         return $this->nextPhase;
+    }
+
+    /**
+     * @return MasterAction
+     */
+    public function getFirstAction()
+    {
+        return $this->firstAction;
     }
 }

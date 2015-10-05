@@ -23,8 +23,8 @@ class ActionStack {
      */
     private $game;
     /**
-     * @var Decision[]
-     * @ORM\OneToMany(targetEntity="Decision", mappedBy="stack", indexBy="position")
+     * @var Action[]
+     * @ORM\OneToMany(targetEntity="Action", mappedBy="stack", indexBy="position")
      * @ORM\OrderBy({"position" = "ASC"})
      */
     private $actions;
@@ -73,10 +73,10 @@ class ActionStack {
     /**
      * Add actions
      *
-     * @param Decision $actions
+     * @param Action $actions
      * @return ActionStack
      */
-    public function addAction(Decision $actions)
+    public function addAction(Action $actions)
     {
         $this->actions[] = $actions;
 
@@ -86,9 +86,9 @@ class ActionStack {
     /**
      * Remove actions
      *
-     * @param Decision $actions
+     * @param Action $actions
      */
-    public function removeAction(Decision $actions)
+    public function removeAction(Action $actions)
     {
         $this->actions->removeElement($actions);
     }
@@ -121,7 +121,7 @@ class ActionStack {
             ->map(function($d){return $d->getPosition();})->toArray();
     }
     /**
-     * @return Decision
+     * @return Action
      */
     public function getCurrentAction()
     {
@@ -139,7 +139,7 @@ class ActionStack {
     }
     /**
      * Returns the top decision from the array
-     * @return Decision|boolean
+     * @return Action|boolean
      */
     public function takeFromTop()
     {
@@ -155,7 +155,7 @@ class ActionStack {
     }
     /**
      * Returns the bottom decision from the array
-     * @return Decision|boolean
+     * @return Action|boolean
      */
     public function takeFromBottom()
     {
@@ -171,10 +171,10 @@ class ActionStack {
 
     /**
      * Adds a decision to the top of the stack, shuffles down the positions if necessary
-     * @param Decision $d
-     * @return Decision $d
+     * @param Action $d
+     * @return Action $d
      */
-    public function addToTop(Decision $d)
+    public function addToTop(Action $d)
     {
         $pos = $this->getPositions();
         // If card group is empty
@@ -192,10 +192,10 @@ class ActionStack {
 
     /**
      * Adds a decision to the bottom of the stack
-     * @param Decision $d
-     * @return Decision
+     * @param Action $d
+     * @return Action
      */
-    public function addToBottom(Decision $d) {
+    public function addToBottom(Action $d) {
         $pos = $this->getPositions();
         if ( count($pos) == 0 )
         {

@@ -8,6 +8,7 @@
 
 namespace Meldon\StrongholdBundle\Services;
 
+use Meldon\StrongholdBundle\Entity\ActionStack;
 use Meldon\StrongholdBundle\Entity\Stronghold;
 use Meldon\StrongholdBundle\Repositories\PhaseRepository;
 use Meldon\StrongholdBundle\Repositories\SideRepository;
@@ -87,6 +88,9 @@ class StrongholdManager
         $sh = new Stronghold();
         $p1 = $this->phaseRepository->getStartingPhase($scenario);
         $sh->setPhase($p1);
+        $sh->setCurrentSide($this->sideRepository->getSideByAbbreviation('INV'));
+        $stack = new ActionStack();
+        $sh->setActionStack($stack);
         $this->game = $sh;
         $this->saveGame();
         $this->log->addText('Game created - ID = ' . $sh->getID());

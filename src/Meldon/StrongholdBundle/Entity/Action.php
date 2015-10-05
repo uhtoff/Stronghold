@@ -3,15 +3,16 @@
  * Created by PhpStorm.
  * User: Russ
  * Date: 27/09/2015
- * Time: 22:14
+ * Time: 22:16
  */
 
 namespace Meldon\StrongholdBundle\Entity;
 
+
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(readOnly=true)
+ * @ORM\Entity
  * @ORM\Table(name="action", options={"collate"="utf8mb4_unicode_ci", "charset"="utf8mb4"})
  */
  
@@ -25,30 +26,39 @@ class Action  {
      */
     private $id;
     /**
-     * @var string
-     * @ORM\Column(length=100)
+     * @var ActionStack
+     * @ORM\ManyToOne(targetEntity="ActionStack")
      */
-    private $name;
+    private $stack;
     /**
-     * @var string
-     * @ORM\Column(length=50, nullable=true)
+     * @var integer
+     * @ORM\Column(type="integer")
      */
-    private $form;
-    /**
-     * @var string
-     * @ORM\Column(length=50)
-     */
-    private $method;
-    /**
-     * @var Action
-     * @ORM\ManyToOne(targetEntity="Action")
-     */
-    private $nextAction;
+    private $position;
+
     /**
      * @var Side
      * @ORM\ManyToOne(targetEntity="Side")
      */
     private $side;
+
+    /**
+     * @var ActionDetails
+     * @ORM\ManyToOne(targetEntity="ActionDetails")
+     */
+    private $actionDetails;
+
+    /**
+     * @var MasterAction
+     * @ORM\ManyToOne(targetEntity="MasterAction")
+     */
+    private $masterAction;
+
+    /**
+     * @var array
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $data;
 
     /**
      * @return int
@@ -59,67 +69,35 @@ class Action  {
     }
 
     /**
-     * @return string
+     * @return ActionStack
      */
-    public function getName()
+    public function getStack()
     {
-        return $this->name;
+        return $this->stack;
     }
 
     /**
-     * @param string $name
+     * @param ActionStack $stack
      */
-    public function setName($name)
+    public function setStack($stack)
     {
-        $this->name = $name;
+        $this->stack = $stack;
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getForm()
+    public function getPosition()
     {
-        return $this->form;
+        return $this->position;
     }
 
     /**
-     * @param string $form
+     * @param int $position
      */
-    public function setForm($form)
+    public function setPosition($position)
     {
-        $this->form = $form;
-    }
-
-    /**
-     * @return string
-     */
-    public function getMethod()
-    {
-        return $this->method;
-    }
-
-    /**
-     * @param string $method
-     */
-    public function setMethod($method)
-    {
-        $this->method = $method;
-    }
-
-    /**
-     * @return Action
-     */
-    public function getNextAction()
-    {
-        return $this->nextAction;
-    }
-
-    /**
-     * @param Action $nextAction
-     */
-    public function setNextAction($nextAction)
-    {
-        $this->nextAction = $nextAction;
+        $this->position = $position;
     }
 
     /**
@@ -138,4 +116,75 @@ class Action  {
         $this->side = $side;
     }
 
+    /**
+     * @return ActionDetails
+     */
+    public function getActionDetails()
+    {
+        return $this->actionDetails;
+    }
+
+    /**
+     * @param ActionDetails $actionDetails
+     */
+    public function setActionDetails($actionDetails)
+    {
+        $this->actionDetails = $actionDetails;
+    }
+
+    /**
+     * @return MasterAction
+     */
+    public function getMasterAction()
+    {
+        return $this->masterAction;
+    }
+
+    /**
+     * @param MasterAction $masterAction
+     */
+    public function setMasterAction($masterAction)
+    {
+        $this->masterAction = $masterAction;
+    }
+
+
+    /**
+     * Set data
+     *
+     * @param array $data
+     *
+     * @return Action
+     */
+    public function setData($data)
+    {
+        $this->data = $data;
+
+        return $this;
+    }
+
+    /**
+     * Get data
+     *
+     * @return array
+     */
+    public function getData()
+    {
+        return $this->data;
+    }
+
+    /**
+     * Add data to the Action object - merging the array if already in place
+     * @param array $data
+     * @return Action
+     */
+    public function addData($data)
+    {
+        if ( !is_array($this->getData()) ) {
+            $this->setData($data);
+        } else {
+            $this->data = array_merge_recursive($this->data, $data);
+        }
+        return $this;
+    }
 }
